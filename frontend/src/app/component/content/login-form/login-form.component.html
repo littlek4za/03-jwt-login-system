@@ -1,0 +1,80 @@
+<div class="row justify-content-center">
+    <div class="col-4">
+
+        <ul class="nav nav-pills nav justified mb-3" id="ex1" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button [ngClass]="active == 'login' ? 'nav-link active' : 'nav-link'" id="tab-login"
+                    (click)="onLoginTab()">Login</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button [ngClass]="active == 'register' ? 'nav-link active' : 'nav-link'" id="tab-register"
+                    (click)="onRegisterTab()">Register</button>
+            </li>
+        </ul>
+
+        <!-- 
+         #anyNameForm="ngForm", ngForm use to create a template variable
+         where later it can be use to
+         {{ loginForm.value }}
+         {{ loginForm.valid }}
+         <button [disabled]="!loginForm.valid">Submit</button>
+         -->
+
+        <!-- 
+         type="" (HTML), Input type(text,email,password)
+         name="" (Angular Forms), example loginForm.value // { login: "…" }
+         [(ngModel)]="" (Angular), two way binding(ts field)
+         -->
+
+        <div class="tab-content">
+            <!--Login Form-->
+            <div [ngClass]="active == 'login' ? 'tab-pane fade show active' : 'tab-pane fade'">
+                <form (ngSubmit)="onSubmitLogin()" #loginForm="ngForm">
+                    <!-- Alternate method 2 <form (ngSubmit)="onSubmitLogin(loginForm)" #loginForm="ngForm"> -->
+                    <div class="form-outline mb-4">
+                        <input class="form-control" type="text" id="loginName" name="login" [(ngModel)]="login" />
+                        <label class="form-label" for="loginName">Username</label>
+                    </div>
+
+                    <div class="form-outline mb-4">
+                        <input class="form-control" type="password" id="loginPassword" name="password"
+                            [(ngModel)]="password" />
+                        <label class="form-label" for="loginPassword">Password</label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block mb-4">Sign in</button>
+                </form>
+            </div>
+            <!--Register Form-->
+            <div [ngClass]="active == 'register' ? 'tab-pane fade show active' : 'tab-pane fade'">
+                <form (ngSubmit)="onSubmitRegister()" #loginForm="ngForm">
+                    <!-- Alternate method 2 <form (ngSubmit)="onSubmitLogin(loginForm)" #loginForm="ngForm"> -->
+                    <div class="form-outline mb-4">
+                        <input class="form-control" type="text" id="firstName" name="firstName"
+                            [(ngModel)]="firstName" />
+                        <label class="form-label" for="firstName">FirstName</label>
+                    </div>
+
+                    <div class="form-outline mb-4">
+                        <input class="form-control" type="text" id="lastName" name="lastName" [(ngModel)]="lastName" />
+                        <label class="form-label" for="lastName">LastName</label>
+                    </div>
+
+                    <div class="form-outline mb-4">
+                        <input class="form-control" type="text" id="login" name="login" [(ngModel)]="login" />
+                        <label class="form-label" for="login">Username</label>
+                    </div>
+
+                    <div class="form-outline mb-4">
+                        <input class="form-control" type="password" id="password" name="password"
+                            [(ngModel)]="password" />
+                        <label class="form-label" for="password">Password</label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block mb-4">Register</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
