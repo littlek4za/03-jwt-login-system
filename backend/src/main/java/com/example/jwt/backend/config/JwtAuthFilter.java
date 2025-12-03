@@ -6,7 +6,9 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.exceptions.TokenExpiredException;
+import com.example.jwt.backend.exception.AppException;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -47,17 +49,22 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
                 } catch (TokenExpiredException e) {
                     SecurityContextHolder.clearContext();
-                    // response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                    // response.getWriter().write("Token expired");
-                    throw e;
+                    response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                    response.getWriter().write("Token expired");
+                    return;
+                } catch (JWTVerificationException e) {
+                    SecurityContextHolder.clearContext();
+                    response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                    response.getWriter().write("Token invalid");
+                    return;
+                } catch (AppException e) {
+                    SecurityContextHolder.clearContext();
+                    response.setStatus(e.getHttpStatus().value());
+                    response.setContentType("application/json");
+                    response.getWriter().write("{\"message\":\"" + e.getMessage() + "\"}");
+                    return;
                 }
 
-                // catch (RuntimeException e) {
-                //     SecurityContextHolder.clearContext();
-                //     response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                //     response.getWriter().write("Invalid expired");
-                //     return;
-                // }
             }
         }
 

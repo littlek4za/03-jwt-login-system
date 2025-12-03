@@ -12,6 +12,9 @@ export class ContentComponent implements OnInit {
   constructor(private axiosService: AxiosService) { }
 
   ngOnInit(): void {
+    this.axiosService.logoutEvent.subscribe(()=>{
+      this.componentToShow = "login";
+    })
   }
 
   onLogin(input: any):void {

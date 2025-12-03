@@ -41,7 +41,7 @@ public class UserAuthProvider {
     public String createToken(UserDto userDto) {
 
         Date now = new Date();
-        Date validity = new Date(now.getTime() + 3_600_000); // 3_600_000 = 60 × 60 × 1000 ms (1hour)
+        Date validity = new Date(now.getTime() + 10_000); // 3_600_000 = 60 × 60 × 1000 ms (1hour)
         return JWT.create()
                 .withIssuer(userDto.getLogin())                         // 'iss' claim
                 .withIssuedAt(now)                                      // 'iat'
@@ -71,7 +71,7 @@ public class UserAuthProvider {
         DecodedJWT decoded = verifier.verify(token);
 
         User user = userRepository.findByLogin(decoded.getIssuer())
-                    .orElseThrow(()-> new AppException("Unknown user", HttpStatus.NOT_FOUND));
+                    .orElseThrow(()-> new AppException("Unknown user", HttpStatus.UNAUTHORIZED));
 
         return new UsernamePasswordAuthenticationToken(userMapper.toUserDto(user), null, Collections.emptyList());
     }

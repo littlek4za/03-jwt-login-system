@@ -30,9 +30,6 @@ export class DebugContentComponent implements OnInit {
         }
       });
       this.decodedClaimsInfo = claims;
-      console.log(this.decodedClaimsInfo);
-    }).catch(error=>{
-      console.error("Failed to get token info: " + error)
     });
   }
 }

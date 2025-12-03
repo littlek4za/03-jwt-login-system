@@ -9,6 +9,7 @@ export class ButtonsComponent implements OnInit {
 
   @Output() loginEvent = new EventEmitter();
   @Output() logoutEvent = new EventEmitter();
+  @Output() messageEvent = new EventEmitter();
   @Output() debugEvent = new EventEmitter();
 
   constructor() { }

@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.example.jwt.backend.config.UserAuthProvider;
 import com.example.jwt.backend.exception.AppException;
 
 import lombok.RequiredArgsConstructor;
