@@ -51,4 +51,15 @@ export class ContentComponent implements OnInit {
     this.componentToShow = componentToShow;
   }
 
+  onLogout():void {
+    if (localStorage.getItem("auth_token")){
+      localStorage.removeItem("auth_token");
+      alert("Logout Successfully.");
+    }
+    else {
+      alert("You are not logged in");
+    }
+    this.componentToShow = ('welcome');
+  }
+
 }

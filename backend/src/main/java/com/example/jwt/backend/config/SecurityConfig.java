@@ -47,7 +47,9 @@ public class SecurityConfig {
                     response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                     response.getWriter().write("Token missing or invalid");
                 })
-            );
+            )
+            .formLogin(form -> form.disable())
+            .httpBasic(basic-> basic.disable());
 
         return http.build();
     }
